@@ -1,70 +1,50 @@
 #include "holberton.h"
 
 /**
- * check_specifiers - check for a valid format
- * @format: format specifier
- * Return: pointer to valid function or null
+ * _printf - prints formatted data to stdout
+ * @format: string that contains the format to print
+ * Return: number of characters written
  */
-static int (*check_specifiers(const char *format))(va_list)
+int _printf(char *format, ...)
 {
-	unsigned int i;
-	pt p[] = {
-		{"c", print_char},
-		{"s", print_string},
-		{"i", print_integer},
-		{"d", print_decimal},
-		{NULL, NULL}
-	};
-
-	for (i = 0; p[i].t != NULL; i++)
-	{
-		if (*(p[i].t) == *format)
-		{
-			break;
-		}
-	}
-	return (p[i].f);
-}
-
-/**
- * _printf - prints anything
- * @format: list of arguments passed to the function
- * Return: number of character printed
- */
-int _printf(const char *format, ...)
-{
-	unsigned int i = 0, count = 0;
-	va_list arg;
-	int (*f)(va_list);
+	int written = 0, (*structype)(char *, va_list);
+	char q[3];
+	va_list pa;
 
 	if (format == NULL)
 		return (-1);
-	va_start(arg, format);
-	while (format[i])
+	q[2] = '\0';
+	va_start(pa, format);
+	_putchar(-1);
+	while (format[0])
 	{
-		for (; format[i] != '%' && format[i]; i++)
+		if (format[0] == '%')
 		{
-			_putchar(format[i]);
-			count++;
+			structype = driver(format);
+			if (structype)
+			{
+				q[0] = '%';
+				q[1] = format[1];
+				written += structype(q, pa);
+			}
+			else if (format[1] != '\0')
+			{
+				written += _putchar('%');
+				written += _putchar(format[1]);
+			}
+			else
+			{
+				written += _putchar('%');
+				break;
+			}
+			format += 2;
 		}
-		if (!format[i])
-			return (count);
-		f = check_specifiers(&format[i + 1]);
-		if (f != NULL)
-		{
-			count += f(arg);
-			i += 2;
-			continue;
-		}
-		if (!format[i + 1])
-			return (-1);
-		_putchar(format[i]);
-		count++;
-		if (format[i + 1] == '%')
-			i += 2;
 		else
-			i++;
+		{
+			written += _putchar(format[0]);
+			format++;
+		}
 	}
-	va_end(arg);
-	return (count);
+	_putchar(-2);
+	return (written);
 }
