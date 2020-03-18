@@ -6,7 +6,7 @@
  * Description: the function loops through the structs
  * selector[] ment of the struct.
  * Return: a pointer
- * structype - Struct
+ * @structype: Struct
  */
 
 int (*driver(char *format))(char *format, va_list)
