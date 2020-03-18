@@ -6,7 +6,7 @@
  * Description: the function loops through the structs
  * selector[] ment of the struct.
  * Return: a pointer
- * structype selector - Struct
+ * structype - Struct
  */
 
 int (*driver(char *format))(char *format, va_list)
@@ -18,6 +18,7 @@ int (*driver(char *format))(char *format, va_list)
 		{"%s", printstr},
 		{"%d", printint},
 		{"%i", printint},
+		{"%u", printint},
 		{"%%", printpercent},
 		{"%x", printhex},
 		{"%X", printHEX},
