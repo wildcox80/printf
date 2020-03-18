@@ -43,11 +43,11 @@ int integer(int number)
 	int count;
 
 	count = contadordigit(number);
-if (number < 0)
-{
-_putchar('-');
-unint = -number;
-}
+	if (number < 0)
+	{
+		_putchar('-');
+		unint = -number;
+	}
 	else
 		unint = number;
 
@@ -74,3 +74,4 @@ int printint(char *format, va_list pa)
 
 	return (numero);
 }
+

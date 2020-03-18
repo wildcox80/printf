@@ -48,3 +48,4 @@ int _printf(char *format, ...)
 	_putchar(-2);
 	return (written);
 }
+
