@@ -71,3 +71,4 @@ int printHEX(char *format, va_list pa)
 	free(NUMHEX);
 	return (CONTAME);
 }
+

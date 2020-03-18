@@ -17,4 +17,3 @@ int printstr(char *format, va_list pa)
 	contador = _puts(string);
 	return (contador);
 }
-
